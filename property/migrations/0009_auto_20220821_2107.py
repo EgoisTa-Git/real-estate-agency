@@ -7,16 +7,24 @@ import phonenumbers
 def set_owner_pure_phone(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     for flat in Flat.objects.all():
-        flat.owner_pure_phone = phonenumbers.parse(
-            flat.owners_phonenumber,
-            'RU',
+        owner_pure_phone = phonenumbers.parse(flat.owners_phonenumber, 'RU')
+        formatted_phonenumber = phonenumbers.format_number(
+            owner_pure_phone,
+            phonenumbers.PhoneNumberFormat.E164,
         )
+        normalized_number = ''.join(filter(str.isdigit,
+                                           flat.owners_phonenumber))
+        if len(normalized_number) == len(formatted_phonenumber[1:]) and \
+                phonenumbers.is_valid_number(owner_pure_phone):
+            flat.owner_pure_phone = owner_pure_phone
+        else:
+            flat.owner_pure_phone = ''
         flat.save()
 
 
 def move_backward(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
-    Flat.objects.all().updade(owner_pure_phone='')
+    Flat.objects.all().update(owner_pure_phone='')
 
 
 class Migration(migrations.Migration):
