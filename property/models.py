@@ -5,20 +5,14 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Flat(models.Model):
-    owner = models.CharField('ФИО владельца', max_length=200)
-    owners_phonenumber = models.CharField('Номер владельца', max_length=20)
-    owner_pure_phone = PhoneNumberField(
-        'Нормализованный номер владельца',
-        blank=True,
-    )
+    owner_deprecated = models.CharField('ФИО владельца', max_length=200,
+                                        db_index=True)
     created_at = models.DateTimeField(
         'Когда создано объявление',
         default=timezone.now,
         db_index=True)
-
     description = models.TextField('Текст объявления', blank=True)
     price = models.IntegerField('Цена квартиры', db_index=True)
-
     town = models.CharField(
         'Город, где находится квартира',
         max_length=50,
@@ -44,7 +38,6 @@ class Flat(models.Model):
         null=True,
         blank=True,
         db_index=True)
-
     has_balcony = models.NullBooleanField('Наличие балкона', db_index=True)
     active = models.BooleanField('Активно-ли объявление', db_index=True)
     construction_year = models.IntegerField(
@@ -81,7 +74,7 @@ class Complain(models.Model):
 
 
 class Owner(models.Model):
-    owner = models.CharField('ФИО владельца', max_length=200)
+    owner = models.CharField('ФИО владельца', max_length=200, db_index=True)
     owners_phonenumber = models.CharField('Номер владельца', max_length=20)
     owner_pure_phone = PhoneNumberField(
         'Нормализованный номер владельца',
