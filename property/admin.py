@@ -31,7 +31,6 @@ class ComplainAdmin(admin.ModelAdmin):
 
 class OwnerAdmin(admin.ModelAdmin):
     raw_id_fields = ('flats',)
-    readonly_fields = ['owner_pure_phone']
     list_display = [
         'owner',
         'owner_pure_phone',
