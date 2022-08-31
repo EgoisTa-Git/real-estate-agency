@@ -5,8 +5,6 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Flat(models.Model):
-    owner_deprecated = models.CharField('ФИО владельца', max_length=200,
-                                        db_index=True)
     created_at = models.DateTimeField(
         'Когда создано объявление',
         default=timezone.now,
