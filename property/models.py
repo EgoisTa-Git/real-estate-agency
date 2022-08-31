@@ -61,22 +61,22 @@ class Complain(models.Model):
         verbose_name='Кто жаловался',
         related_name='complaints_by_user',
     )
-    complain_address = models.ForeignKey(
+    address = models.ForeignKey(
         Flat,
         on_delete=models.CASCADE,
         verbose_name='Квартира, на которую пожаловались',
         related_name='complaints',
     )
-    complain_text = models.TextField('Текст жалобы')
+    text = models.TextField('Текст жалобы')
 
     def __str__(self):
-        return self.complain_text
+        return self.text
 
 
 class Owner(models.Model):
-    owner = models.CharField('ФИО владельца', max_length=200, db_index=True)
-    owners_phonenumber = models.CharField('Номер владельца', max_length=20)
-    owner_pure_phone = PhoneNumberField(
+    name = models.CharField('ФИО владельца', max_length=200, db_index=True)
+    phonenumber = models.CharField('Номер владельца', max_length=20)
+    pure_phone = PhoneNumberField(
         'Нормализованный номер владельца',
         blank=True,
     )
@@ -87,4 +87,4 @@ class Owner(models.Model):
     )
 
     def __str__(self):
-        return self.owner
+        return self.name

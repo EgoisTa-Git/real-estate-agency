@@ -27,20 +27,20 @@ class FlatAdmin(admin.ModelAdmin):
 
 
 class ComplainAdmin(admin.ModelAdmin):
-    raw_id_fields = ('user', 'complain_address')
+    raw_id_fields = ('user', 'address')
     list_display = [
         'user',
-        'complain_address',
-        'complain_text',
+        'address',
+        'text',
     ]
 
 
 class OwnerAdmin(admin.ModelAdmin):
     raw_id_fields = ('flats',)
-    search_fields = ['owner', 'owner_pure_phone']
+    search_fields = ['name', 'pure_phone']
     list_display = [
-        'owner',
-        'owner_pure_phone',
+        'name',
+        'pure_phone',
     ]
 
 
