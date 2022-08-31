@@ -5,12 +5,13 @@ from django.db import migrations
 
 def set_new_building(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
-    for flat in Flat.objects.all():
-        if flat.construction_year >= 2015:
-            flat.new_building = True
-        else:
-            flat.new_building = False
-        flat.save()
+    Flat.objects.update(new_building=False)
+    Flat.objects.filter(construction_year__gte=2015).update(new_building=True)
+
+
+def move_backward(apps, schema_editor):
+    Flat = apps.get_model('property', 'Flat')
+    Flat.objects.update(new_building=None)
 
 
 class Migration(migrations.Migration):
@@ -20,5 +21,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(set_new_building)
+        migrations.RunPython(set_new_building, move_backward)
     ]
