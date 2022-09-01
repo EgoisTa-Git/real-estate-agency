@@ -6,7 +6,8 @@ from django.db import migrations
 def set_owners(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     Owner = apps.get_model('property', 'Owner')
-    for owner in Owner.objects.all():
+    owners = Owner.objects.all()
+    for owner in owners.iterator():
         owner.flats.set(Flat.objects.filter(owner_deprecated=owner.owner))
         owner.save()
 
