@@ -29,10 +29,10 @@ class FlatAdmin(admin.ModelAdmin):
 
 @admin.register(Complain)
 class ComplainAdmin(admin.ModelAdmin):
-    raw_id_fields = ('user', 'address')
+    raw_id_fields = ('user', 'flat')
     list_display = [
         'user',
-        'address',
+        'flat',
         'text',
     ]
 

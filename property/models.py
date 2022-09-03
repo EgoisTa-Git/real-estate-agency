@@ -61,7 +61,7 @@ class Complain(models.Model):
         verbose_name='Кто жаловался',
         related_name='complaints',
     )
-    address = models.ForeignKey(
+    flat = models.ForeignKey(
         Flat,
         on_delete=models.CASCADE,
         verbose_name='Квартира, на которую пожаловались',
