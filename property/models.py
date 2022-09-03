@@ -59,7 +59,7 @@ class Complain(models.Model):
         User,
         on_delete=models.CASCADE,
         verbose_name='Кто жаловался',
-        related_name='complaints_by_user',
+        related_name='complaints',
     )
     address = models.ForeignKey(
         Flat,
